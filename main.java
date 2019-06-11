@@ -38,14 +38,10 @@ class Main {
                 lettersToGuess -= 1;
                 guessedArray.add(currentLetter);
                 printResults(secretArray, guessedArray, lives);
-            }
-
-            else if (guessedArray.contains(currentLetter)) {
+            } else if (guessedArray.contains(currentLetter)) {
 
                 System.out.println("Try again; the letter '" + currentLetter + "' has already been guessed.\n");
-            }
-
-            else {
+            } else {
 
                 System.out.println("Ouch, the letter '" + currentLetter + "' is NOT in the word!");
 
@@ -57,8 +53,7 @@ class Main {
 
         if (lives == 0) {
             System.out.println("The Hangman wins!!");
-        }
-        else if (lettersToGuess == 0) {
+        } else if (lettersToGuess == 0) {
             System.out.println("The Guessers win!!");
         }
 
@@ -71,14 +66,40 @@ class Main {
         // Prints the platform and prisoner
         System.out.println("     _______");
         System.out.println("     |     :");
-        System.out.println("     |     @");
-        System.out.println("     |    /|\\");
-        System.out.println("     |     |");
-        System.out.println("     |    / \\");
+
+        if (lives < 7) {
+            System.out.println("     |     @");
+        } else {
+            System.out.println("     |");
+        }
+
+        if (lives < 4) {
+            System.out.println("     |    /|\\");
+        } else if (lives < 5) {
+            System.out.println("     |    /|");
+        } else if (lives < 6) {
+            System.out.println("     |     |");
+        } else {
+            System.out.println("     |");
+        }
+
+        if (lives < 3) {
+            System.out.println("     |     |");
+        } else {
+            System.out.println("     |");
+        }
+
+        if (lives < 1) {
+            System.out.println("     |    / \\");
+        } else if (lives < 2) {
+            System.out.println("     |    /");
+        } else {
+            System.out.println("     |");
+        }
+
         System.out.println("     |");
         System.out.println(" ____|______________ ");
         System.out.println("| " + lives + " LIVES REMAINING |");
-
 
         // Prints the word so far
         System.out.print(" WORD:  ");
@@ -86,8 +107,7 @@ class Main {
 
             if (guessedArray.contains(secretLetter)) {
                 System.out.print(secretLetter + " ");
-            }
-            else {
+            } else {
                 System.out.print("_ ");
             }
         }
