@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -5,19 +6,20 @@ import java.util.ArrayList;
 class Main {
     public static void main(String[] args) {
 
-        Scanner reader = new Scanner(System.in);
-        System.out.println("*** Welcome to HANGMAN! ***");
+        Console secretReader = System.console();
+
+        System.out.println("\n\n*** Welcome to HANGMAN! ***");
         System.out.println("Hangman, what is your word?");
 
-        String secret = reader.nextLine().toUpperCase();
-        System.out.println("\n\n");
+        char[] secret = secretReader.readPassword();
 
         ArrayList<Character> secretArray = new ArrayList<>();
-        for (char secretLetter : secret.toCharArray()) {
-            secretArray.add(secretLetter);
+        for (char secretLetter : secret) {
+            secretArray.add(Character.toUpperCase(secretLetter));
         }
 
         ArrayList<Character> guessedArray = new ArrayList<>();
+        Scanner guessReader = new Scanner(System.in);
 
         // This counts only the UNIQUE letters in the secret word
         int lettersToGuess = (int) secretArray.stream().distinct().count();
@@ -26,7 +28,7 @@ class Main {
         while (lives > 0 && lettersToGuess > 0) {
 
             System.out.println("Guessers, what is your letter?");
-            currentLetter = reader.nextLine().toUpperCase().charAt(0);
+            currentLetter = guessReader.nextLine().toUpperCase().charAt(0);
 
             if (secretArray.contains(currentLetter) && !guessedArray.contains(currentLetter)) {
 
@@ -59,8 +61,8 @@ class Main {
             System.out.println("The Guessers win!!");
         }
 
-        System.out.println("The secret word is: '" + secret + "'\n");
-        reader.close();
+        System.out.println("The secret word is: '" + new String(secret).toUpperCase() + "'\n");
+        guessReader.close();
 
     }
 
