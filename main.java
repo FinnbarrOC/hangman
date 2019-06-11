@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 class Main {
+
     public static void main(String[] args) {
 
         Console secretReader = System.console();
@@ -23,8 +24,8 @@ class Main {
 
         // This counts only the UNIQUE letters in the secret word
         int lettersToGuess = (int) secretArray.stream().distinct().count();
-        int lives = 5;
         char currentLetter;
+        int lives = 7;
         while (lives > 0 && lettersToGuess > 0) {
 
             System.out.println("Guessers, what is your letter?");
@@ -36,7 +37,7 @@ class Main {
 
                 lettersToGuess -= 1;
                 guessedArray.add(currentLetter);
-                printResults(secretArray, guessedArray);
+                printResults(secretArray, guessedArray, lives);
             }
 
             else if (guessedArray.contains(currentLetter)) {
@@ -50,7 +51,7 @@ class Main {
 
                 lives -= 1;
                 guessedArray.add(currentLetter);
-                printResults(secretArray, guessedArray);
+                printResults(secretArray, guessedArray, lives);
             }
         }
 
@@ -63,10 +64,24 @@ class Main {
 
         System.out.println("The secret word is: '" + new String(secret).toUpperCase() + "'\n");
         guessReader.close();
-
     }
 
-    private static void printResults(ArrayList<Character> secretArray, ArrayList<Character> guessedArray) {
+    private static void printResults(ArrayList<Character> secretArray, ArrayList<Character> guessedArray, int lives) {
+
+        // Prints the platform and prisoner
+        System.out.println("     _______");
+        System.out.println("     |     :");
+        System.out.println("     |     @");
+        System.out.println("     |    /|\\");
+        System.out.println("     |     |");
+        System.out.println("     |    / \\");
+        System.out.println("     |");
+        System.out.println(" ____|______________ ");
+        System.out.println("| " + lives + " LIVES REMAINING |");
+
+
+        // Prints the word so far
+        System.out.print(" WORD:  ");
         for (char secretLetter : secretArray) {
 
             if (guessedArray.contains(secretLetter)) {
