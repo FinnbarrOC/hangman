@@ -22,8 +22,7 @@ class Main {
         ArrayList<Character> guessedArray = new ArrayList<>();
         Scanner guessReader = new Scanner(System.in);
 
-        // This counts only the UNIQUE letters in the secret word
-        int lettersToGuess = (int) secretArray.stream().distinct().count();
+        int lettersToGuess = countUniqueLetters(secretArray);
         char currentLetter;
         int lives = 7;
         while (lives > 0 && lettersToGuess > 0) {
@@ -59,6 +58,24 @@ class Main {
 
         System.out.println("The secret word is: '" + new String(secret).toUpperCase() + "'\n");
         guessReader.close();
+    }
+
+    // You must fill this out:
+    // It needs to count the number of UNIQUE letters in secretArray,
+    // i.e. repeated letters do not count
+    private static int countUniqueLetters(ArrayList<Character> secretArray) {
+
+      int numUniqueLetters = 0;
+      ArrayList<Character> checkerArray = new ArrayList<>();
+
+      for (char secretLetter : secretArray) {
+        if (!checkerArray.contains(secretLetter)) {
+          checkerArray.add(secretLetter);
+          numUniqueLetters += 1;
+        }
+      }
+
+      return numUniqueLetters;
     }
 
     private static void printResults(ArrayList<Character> secretArray, ArrayList<Character> guessedArray, int lives) {
